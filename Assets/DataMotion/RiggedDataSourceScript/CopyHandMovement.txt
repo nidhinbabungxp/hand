@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class CopyHandMovement : MonoBehaviour
+{
+    [Header("Character 1 Hands")]
+    public Transform sourceLeftHand;
+    public Transform sourceRightHand;
+
+    [Header("Character 2 Hands")]
+    public Transform targetLeftHand;
+    public Transform targetRightHand;
+
+    void LateUpdate()
+    {
+        // // Copy left hand
+         targetLeftHand.position = sourceLeftHand.position;
+         targetLeftHand.rotation = sourceLeftHand.rotation;
+
+        // // Copy right hand
+         targetRightHand.position = sourceRightHand.position;
+         targetRightHand.rotation = sourceRightHand.rotation;
+       
+    
+    }
+}
