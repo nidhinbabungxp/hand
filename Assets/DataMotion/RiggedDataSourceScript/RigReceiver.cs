@@ -79,6 +79,11 @@ public class RigReceiver : MonoBehaviour
     private Vector3 leftHandVelocity;
     private Vector3 rightHandVelocity;
 
+    [Header("Body Turn From Chest")]
+public bool rotateRootFromChestYaw = true;
+public float chestTurnThresholdDegrees = 45f;
+public float rootTurnSmoothSpeed = 6f;
+
     
 
     private void Awake()
@@ -149,6 +154,7 @@ public class RigReceiver : MonoBehaviour
 
             case ReceiverMode.ChestPositionToRoot:
                 ApplyChestPositionToRoot();
+                
                 break;
 
             case ReceiverMode.FullBody:
@@ -355,4 +361,37 @@ public class RigReceiver : MonoBehaviour
         Transform root = rootObject != null ? rootObject : transform;
         globalcoordRoot = root.position;
     }
+
+    private void ApplyRootRotationFromChest()
+{
+    if (!rotateRootFromChestYaw || !calibrated)
+    {
+        return;
+    }
+
+    Transform root = rootObject != null ? rootObject : transform;
+
+    Quaternion chestDeltaRotation = source.ChestRotation * Quaternion.Inverse(startChestRotation);
+
+    Vector3 chestForward = chestDeltaRotation * Vector3.forward;
+    chestForward.y = 0f;
+
+    if (chestForward.sqrMagnitude < 0.001f)
+    {
+        return;
+    }
+
+    float yawAngle = Vector3.SignedAngle(Vector3.forward, chestForward.normalized, Vector3.up);
+
+    if (Mathf.Abs(yawAngle) < chestTurnThresholdDegrees)
+    {
+        return;
+    }
+
+    Quaternion targetRootRotation =
+        startRootRotation * Quaternion.Euler(0f, yawAngle, 0f);
+
+    float t = 1f - Mathf.Exp(-rootTurnSmoothSpeed * Time.deltaTime);
+    root.rotation = Quaternion.Slerp(root.rotation, targetRootRotation, t);
+}
 }

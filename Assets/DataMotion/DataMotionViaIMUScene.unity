@@ -202,32 +202,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RigReceiver
   sourceObject: {fileID: 197253760}
   animator: {fileID: 564448463}
+  receiverMode: 7
   chestTarget: {fileID: 369777197}
   leftHandTarget: {fileID: 1674176695}
   rightHandTarget: {fileID: 1819315662}
-  localChestRef: {fileID: 0}
-  useChestBoneAsChestRef: 0
+  rootObject: {fileID: 0}
+  useRelativeChestPosition: 1
+  lockRootY: 1
+  rootPositionMultiplier: 1
+  chestPositionThreshold: 0.02
+  positionSmoothSpeed: 10
+  rotationSmoothSpeed: 12
+  useArmReachClamp: 0
   leftShoulderBone: {fileID: 1289781356}
   rightShoulderBone: {fileID: 1321806466}
   maxArmReach: 0.6
-  multipler: 0
-  positionSmoothSpeed: 10
-  rotationSmoothSpeed: 12
-  needClamping: 0
-  needToUseRelative: 0
-  _wristAnchor: {x: 0, y: 0, z: 0}
-  _rightHandAnchor: {fileID: 0}
-  _leftHandAnchor: {fileID: 0}
-  wristRightPull: 0.5
-  wristLeftPull: 0.5
-  _rightHand: {fileID: 0}
-  rightHandOnly: 1
-  leftHandOnly: 0
-  chestOnly: 0
-  allMovementData: 0
   globalcoordLeft: {x: 0, y: 0, z: 0}
   globalcoordRight: {x: 0, y: 0, z: 0}
   globalcoordChest: {x: 0, y: 0, z: 0}
+  globalcoordRoot: {x: 0, y: 0, z: 0}
 --- !u!1 &102363015
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,7 +651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IMUDataSource
   rianRotation: {x: 0, y: 0, z: 0, w: 1}
   endpointMode: 0
-  combinedUrl: http://10.57.221.56:8080/api/all/latest
+  combinedUrl: https://liibr-2409-40f3-1d-4e14-1157-d0b-9e3c-794e.run.pinggy-free.link/api/all/latest
   chestUrl: http://192.168.1.100:8080/sensor/chest
   leftHandUrl: http://192.168.1.100:8080/sensor/left
   rightHandUrl: http://192.168.1.100:8080/sensor/right
@@ -672,6 +665,7 @@ MonoBehaviour:
   rightHandEulerOffset: {x: 0, y: 0, z: 0}
   armLength: 0.55
   logData: 0
+  printReceivedMotionData: 1
   cube3D: {fileID: 0}
   changeSignX: 1
   changeSignY: 1
@@ -1702,25 +1696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
-  m_SendPointerHoverToParent: 1
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
-  m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
 --- !u!114 &265007993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6685,32 +6660,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RigReceiver
   sourceObject: {fileID: 197253760}
   animator: {fileID: 0}
+  receiverMode: 7
   chestTarget: {fileID: 1606707570}
   leftHandTarget: {fileID: 269953760}
   rightHandTarget: {fileID: 1458322134}
-  localChestRef: {fileID: 0}
-  useChestBoneAsChestRef: 0
+  rootObject: {fileID: 0}
+  useRelativeChestPosition: 1
+  lockRootY: 1
+  rootPositionMultiplier: 1
+  chestPositionThreshold: 0.02
+  positionSmoothSpeed: 10
+  rotationSmoothSpeed: 12
+  useArmReachClamp: 0
   leftShoulderBone: {fileID: 0}
   rightShoulderBone: {fileID: 0}
   maxArmReach: 0.55
-  multipler: 0
-  positionSmoothSpeed: 10
-  rotationSmoothSpeed: 12
-  needClamping: 0
-  needToUseRelative: 0
-  _wristAnchor: {x: 0, y: 0, z: 0}
-  _rightHandAnchor: {fileID: 0}
-  _leftHandAnchor: {fileID: 0}
-  wristRightPull: 0.5
-  wristLeftPull: 0.5
-  _rightHand: {fileID: 0}
-  rightHandOnly: 0
-  leftHandOnly: 0
-  chestOnly: 0
-  allMovementData: 0
   globalcoordLeft: {x: 0, y: 0, z: 0}
   globalcoordRight: {x: 0, y: 0, z: 0}
   globalcoordChest: {x: 0, y: 0, z: 0}
+  globalcoordRoot: {x: 0, y: 0, z: 0}
 --- !u!114 &1294211280
 MonoBehaviour:
   m_ObjectHideFlags: 0
