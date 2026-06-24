@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 84706203}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -206,7 +206,7 @@ MonoBehaviour:
   chestTarget: {fileID: 369777197}
   leftHandTarget: {fileID: 1674176695}
   rightHandTarget: {fileID: 1819315662}
-  rootObject: {fileID: 0}
+  rootObject: {fileID: 564448465}
   useRelativeChestPosition: 1
   lockRootY: 1
   rootPositionMultiplier: 1
@@ -221,6 +221,9 @@ MonoBehaviour:
   globalcoordRight: {x: 0, y: 0, z: 0}
   globalcoordChest: {x: 0, y: 0, z: 0}
   globalcoordRoot: {x: 0, y: 0, z: 0}
+  rotateRootFromChestYaw: 1
+  chestTurnThresholdDegrees: 45
+  rootTurnSmoothSpeed: 6
 --- !u!1 &102363015
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IMUDataSource
   rianRotation: {x: 0, y: 0, z: 0, w: 1}
   endpointMode: 0
-  combinedUrl: https://liibr-2409-40f3-1d-4e14-1157-d0b-9e3c-794e.run.pinggy-free.link/api/all/latest
+  combinedUrl: http://10.57.221.56:8080/api/all/latest
   chestUrl: http://192.168.1.100:8080/sensor/chest
   leftHandUrl: http://192.168.1.100:8080/sensor/left
   rightHandUrl: http://192.168.1.100:8080/sensor/right
@@ -6679,6 +6682,9 @@ MonoBehaviour:
   globalcoordRight: {x: 0, y: 0, z: 0}
   globalcoordChest: {x: 0, y: 0, z: 0}
   globalcoordRoot: {x: 0, y: 0, z: 0}
+  rotateRootFromChestYaw: 1
+  chestTurnThresholdDegrees: 45
+  rootTurnSmoothSpeed: 6
 --- !u!114 &1294211280
 MonoBehaviour:
   m_ObjectHideFlags: 0

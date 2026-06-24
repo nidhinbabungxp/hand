@@ -149,20 +149,23 @@ public float rootTurnSmoothSpeed = 6f;
                 break;
 
             case ReceiverMode.ChestRotationOnly:
-                ApplyChestRotation();
-                break;
+    ApplyChestRotation();
+    ApplyRootRotationFromChest();
+    break;
 
             case ReceiverMode.ChestPositionToRoot:
                 ApplyChestPositionToRoot();
                 
                 break;
 
-            case ReceiverMode.FullBody:
-                ApplyChestPositionToRoot();
-                ApplyChestRotation();
-                ApplyLeftHand();
-                ApplyRightHand();
-                break;
+         case ReceiverMode.FullBody:
+    ApplyRootRotationFromChest();
+    ApplyChestPositionToRoot();
+
+    ApplyChestRotation();
+    ApplyLeftHand();
+    ApplyRightHand();
+    break;
         }
 
         UpdateDebugCoordinates();
@@ -362,34 +365,24 @@ public float rootTurnSmoothSpeed = 6f;
         globalcoordRoot = root.position;
     }
 
-    private void ApplyRootRotationFromChest()
+private void ApplyRootRotationFromChest()
 {
     if (!rotateRootFromChestYaw || !calibrated)
-    {
         return;
-    }
 
     Transform root = rootObject != null ? rootObject : transform;
 
-    Quaternion chestDeltaRotation = source.ChestRotation * Quaternion.Inverse(startChestRotation);
+    // After your quaternion swap, chest yaw should be Unity Y
+    float chestYaw = Mathf.DeltaAngle(
+        startChestRotation.eulerAngles.y,
+        source.ChestRotation.eulerAngles.y
+    );
 
-    Vector3 chestForward = chestDeltaRotation * Vector3.forward;
-    chestForward.y = 0f;
-
-    if (chestForward.sqrMagnitude < 0.001f)
-    {
+    if (Mathf.Abs(chestYaw) < chestTurnThresholdDegrees)
         return;
-    }
-
-    float yawAngle = Vector3.SignedAngle(Vector3.forward, chestForward.normalized, Vector3.up);
-
-    if (Mathf.Abs(yawAngle) < chestTurnThresholdDegrees)
-    {
-        return;
-    }
 
     Quaternion targetRootRotation =
-        startRootRotation * Quaternion.Euler(0f, yawAngle, 0f);
+        startRootRotation * Quaternion.Euler(0f, chestYaw, 0f);
 
     float t = 1f - Mathf.Exp(-rootTurnSmoothSpeed * Time.deltaTime);
     root.rotation = Quaternion.Slerp(root.rotation, targetRootRotation, t);
