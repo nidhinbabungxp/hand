@@ -209,6 +209,12 @@ public class IMUDataSource : MonoBehaviour, IMotionSource
 
             ChestRotation = quaternion;
 
+            ChestPosition = new Vector3(
+                changeSignX * r.position_abs.x,
+                changeSignY * r.position_abs.z,
+                changeSignZ * r.position_abs.y
+            );
+
             if (printReceivedMotionData)
             {
                 Debug.Log(
@@ -234,8 +240,6 @@ public class IMUDataSource : MonoBehaviour, IMotionSource
                 changeSignY * r.position_abs.z,
                 changeSignZ * r.position_abs.y
             );
-
-            pos.y = Mathf.Clamp(pos.y, 0.27f, 1.14f);
 
             LeftHandPosition = pos;
 

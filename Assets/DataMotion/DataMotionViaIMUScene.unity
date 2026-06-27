@@ -202,11 +202,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RigReceiver
   sourceObject: {fileID: 197253760}
   animator: {fileID: 564448463}
-  receiverMode: 7
+  receiverMode: 0
   chestTarget: {fileID: 369777197}
   leftHandTarget: {fileID: 1674176695}
   rightHandTarget: {fileID: 1819315662}
-  rootObject: {fileID: 564448465}
+  rootObject: {fileID: 84706204}
   useRelativeChestPosition: 1
   lockRootY: 1
   rootPositionMultiplier: 1
@@ -658,9 +658,9 @@ MonoBehaviour:
   chestUrl: http://192.168.1.100:8080/sensor/chest
   leftHandUrl: http://192.168.1.100:8080/sensor/left
   rightHandUrl: http://192.168.1.100:8080/sensor/right
-  rianUrl: https://purple-depict-list.ngrok-free.dev/api/activity/right_hand/latest
+  rianUrl: http://192.168.1.100:8080/sensors
   pollInterval: 0.05
-  chestName: chest
+  chestName: CHEST
   leftName: LEFT_HAND
   rightName: RIGHT_HAND
   chestEulerOffset: {x: 0, y: 0, z: 0}
@@ -3350,7 +3350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 343f99c5f38a3c84e9b63968f3901247, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 343f99c5f38a3c84e9b63968f3901247, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3700,7 +3700,7 @@ Animator:
   m_GameObject: {fileID: 564448462}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 343f99c5f38a3c84e9b63968f3901247, type: 3}
-  m_Controller: {fileID: 9100000, guid: 9739e8d6eb18aec4c8905558cd7c9125, type: 2}
+  m_Controller: {fileID: 9100000, guid: 296caa4c84b8b264fa72138b9e677452, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

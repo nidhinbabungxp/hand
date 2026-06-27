@@ -149,9 +149,9 @@ public float rootTurnSmoothSpeed = 6f;
                 break;
 
             case ReceiverMode.ChestRotationOnly:
-    ApplyChestRotation();
-    ApplyRootRotationFromChest();
-    break;
+        ApplyChestRotation();
+        ApplyRootRotationFromChest();
+        break;
 
             case ReceiverMode.ChestPositionToRoot:
                 ApplyChestPositionToRoot();
@@ -159,13 +159,13 @@ public float rootTurnSmoothSpeed = 6f;
                 break;
 
          case ReceiverMode.FullBody:
-    ApplyRootRotationFromChest();
-    ApplyChestPositionToRoot();
+        ApplyRootRotationFromChest();
+       //  ApplyChestPositionToRoot();
 
-    ApplyChestRotation();
-    ApplyLeftHand();
-    ApplyRightHand();
-    break;
+        ApplyChestRotation();
+        ApplyLeftHand();
+        ApplyRightHand();
+        break;
         }
 
         UpdateDebugCoordinates();
@@ -261,6 +261,11 @@ public float rootTurnSmoothSpeed = 6f;
 
     private void ApplyChestPositionToRoot()
     {
+
+        Debug.Log($"Chest Position: {source.ChestPosition}");
+Debug.Log($"Start Chest Position: {startChestPosition}");
+Debug.Log($"Delta: {source.ChestPosition - startChestPosition}");
+
         if (!calibrated)
         {
             Calibrate();
@@ -288,11 +293,6 @@ public float rootTurnSmoothSpeed = 6f;
             {
                 targetPosition.y = startRootPosition.y;
             }
-        }
-
-        if (Vector3.Distance(root.position, targetPosition) < chestPositionThreshold)
-        {
-            return;
         }
 
         root.position = Vector3.SmoothDamp(
@@ -377,9 +377,6 @@ private void ApplyRootRotationFromChest()
         startChestRotation.eulerAngles.y,
         source.ChestRotation.eulerAngles.y
     );
-
-    if (Mathf.Abs(chestYaw) < chestTurnThresholdDegrees)
-        return;
 
     Quaternion targetRootRotation =
         startRootRotation * Quaternion.Euler(0f, chestYaw, 0f);
