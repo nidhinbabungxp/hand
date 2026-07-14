@@ -201,7 +201,7 @@ public class IMUDataSource : MonoBehaviour, IMotionSource
         {
             Quaternion quaternion = new Quaternion(
                 r.rotation.qx,
-                
+
                 r.rotation.qz,
                 -r.rotation.qy,
                 r.rotation.qw

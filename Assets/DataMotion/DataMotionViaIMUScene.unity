@@ -165,6 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84706204}
   - component: {fileID: 84706205}
+  - component: {fileID: 84706206}
   m_Layer: 0
   m_Name: ParentLogic
   m_TagString: Untagged
@@ -202,13 +203,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RigReceiver
   sourceObject: {fileID: 197253760}
   animator: {fileID: 564448463}
-  receiverMode: 0
+  receiverMode: 7
   chestTarget: {fileID: 369777197}
   leftHandTarget: {fileID: 1674176695}
   rightHandTarget: {fileID: 1819315662}
   rootObject: {fileID: 84706204}
-  useRelativeChestPosition: 1
-  lockRootY: 1
+  useRelativeChestPosition: 0
+  lockRootY: 0
   rootPositionMultiplier: 1
   chestPositionThreshold: 0.02
   positionSmoothSpeed: 10
@@ -224,6 +225,25 @@ MonoBehaviour:
   rotateRootFromChestYaw: 1
   chestTurnThresholdDegrees: 45
   rootTurnSmoothSpeed: 6
+--- !u!114 &84706206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84706203}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30cb798fed060b848adcb167fdf69047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  rootObject: {fileID: 84706204}
+  animator: {fileID: 564448463}
+  walkingBoolName: Walking
+  moveThreshold: 0.01
+  ignoreY: 1
+  manualTest: 0
+  manualMoveSpeed: 2
 --- !u!1 &102363015
 GameObject:
   m_ObjectHideFlags: 0
@@ -5804,61 +5824,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 963339077}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1163329751
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1163329753}
-  - component: {fileID: 1163329752}
-  m_Layer: 0
-  m_Name: iot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1163329752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1163329751}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4f17f597c8b91747a8bd7d9b12cb8a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  receiverMode: 5
-  apiUrl: http://10.57.221.56:8080/api/all/latest
-  refreshRate: 0.05
-  root: {fileID: 84706204}
-  chest: {fileID: 369777197}
-  leftHand: {fileID: 1674176695}
-  rightHand: {fileID: 1819315662}
-  positionSmooth: 10
-  rotationSmooth: 10
-  scale: 1
-  positionOffset: {x: 0, y: 0, z: 0}
---- !u!4 &1163329753
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1163329751}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.46626, y: 1.3241, z: -0.42939}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171351036
 GameObject:
   m_ObjectHideFlags: 0
@@ -11015,4 +10980,3 @@ SceneRoots:
   - {fileID: 1723027865}
   - {fileID: 1364419933}
   - {fileID: 265007994}
-  - {fileID: 1163329753}

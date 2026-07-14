@@ -80,11 +80,15 @@ public class RigReceiver : MonoBehaviour
     private Vector3 rightHandVelocity;
 
     [Header("Body Turn From Chest")]
-public bool rotateRootFromChestYaw = true;
-public float chestTurnThresholdDegrees = 45f;
-public float rootTurnSmoothSpeed = 6f;
+    public bool rotateRootFromChestYaw = true;
+    public float chestTurnThresholdDegrees = 45f;
+    public float rootTurnSmoothSpeed = 6f;
 
-    
+    [Header("Forward / Back Movement")]
+    public bool useForwardMovement = true;
+    public float forwardMultiplier = 1f;
+    public float sidewaysMultiplier = 1f;
+
 
     private void Awake()
     {
@@ -149,23 +153,23 @@ public float rootTurnSmoothSpeed = 6f;
                 break;
 
             case ReceiverMode.ChestRotationOnly:
-        ApplyChestRotation();
-        ApplyRootRotationFromChest();
-        break;
+                ApplyChestRotation();
+                ApplyRootRotationFromChest();
+                break;
 
             case ReceiverMode.ChestPositionToRoot:
                 ApplyChestPositionToRoot();
-                
+
                 break;
 
-         case ReceiverMode.FullBody:
-        ApplyRootRotationFromChest();
-       //  ApplyChestPositionToRoot();
+            case ReceiverMode.FullBody:
+                ApplyRootRotationFromChest();
+                  ApplyChestPositionToRoot();
 
-        ApplyChestRotation();
-        ApplyLeftHand();
-        ApplyRightHand();
-        break;
+                ApplyChestRotation();
+                ApplyLeftHand();
+                ApplyRightHand();
+                break;
         }
 
         UpdateDebugCoordinates();
@@ -261,38 +265,64 @@ public float rootTurnSmoothSpeed = 6f;
 
     private void ApplyChestPositionToRoot()
     {
-
-        Debug.Log($"Chest Position: {source.ChestPosition}");
-Debug.Log($"Start Chest Position: {startChestPosition}");
-Debug.Log($"Delta: {source.ChestPosition - startChestPosition}");
-
         if (!calibrated)
         {
             Calibrate();
+            return;
         }
 
         Transform root = rootObject != null ? rootObject : transform;
+
         Vector3 targetPosition;
 
         if (useRelativeChestPosition)
         {
-            Vector3 chestDelta = (source.ChestPosition - startChestPosition) * rootPositionMultiplier;
+            Vector3 rawDelta = source.ChestPosition - startChestPosition;
 
-            if (lockRootY)
+            // Sensor movement values
+            float sidewaysAmount = rawDelta.x;
+            float forwardAmount = rawDelta.z;
+
+            // Get character directions
+            Vector3 forward = root.forward;
+            Vector3 right = root.right;
+
+            // Remove all vertical movement from directions
+            forward.y = 0f;
+            right.y = 0f;
+
+            forward.Normalize();
+            right.Normalize();
+
+            Vector3 movement;
+
+            if (useForwardMovement)
             {
-                chestDelta.y = 0f;
+                movement =
+                    forward * (forwardAmount * forwardMultiplier) +
+                    right * (sidewaysAmount * sidewaysMultiplier);
+            }
+            else
+            {
+                movement = new Vector3(
+                    rawDelta.x,
+                    0f,
+                    rawDelta.z
+                ) * rootPositionMultiplier;
             }
 
-            targetPosition = startRootPosition + chestDelta;
+            targetPosition = startRootPosition + movement;
+
+            // Completely lock vertical position
+            targetPosition.y = startRootPosition.y;
         }
         else
         {
-            targetPosition = source.ChestPosition * rootPositionMultiplier;
-
-            if (lockRootY)
-            {
-                targetPosition.y = startRootPosition.y;
-            }
+            targetPosition = new Vector3(
+                source.ChestPosition.x * rootPositionMultiplier,
+                startRootPosition.y,
+                source.ChestPosition.z * rootPositionMultiplier
+            );
         }
 
         root.position = Vector3.SmoothDamp(
@@ -301,6 +331,11 @@ Debug.Log($"Delta: {source.ChestPosition - startChestPosition}");
             ref rootVelocity,
             GetSmoothTime(positionSmoothSpeed)
         );
+
+        // Extra protection against Y movement
+        Vector3 lockedPosition = root.position;
+        lockedPosition.y = startRootPosition.y;
+        root.position = lockedPosition;
     }
 
     private void SmoothSetPositionAndRotation(
@@ -365,23 +400,23 @@ Debug.Log($"Delta: {source.ChestPosition - startChestPosition}");
         globalcoordRoot = root.position;
     }
 
-private void ApplyRootRotationFromChest()
-{
-    if (!rotateRootFromChestYaw || !calibrated)
-        return;
+    private void ApplyRootRotationFromChest()
+    {
+        if (!rotateRootFromChestYaw || !calibrated)
+            return;
 
-    Transform root = rootObject != null ? rootObject : transform;
+        Transform root = rootObject != null ? rootObject : transform;
 
-    // After your quaternion swap, chest yaw should be Unity Y
-    float chestYaw = Mathf.DeltaAngle(
-        startChestRotation.eulerAngles.y,
-        source.ChestRotation.eulerAngles.y
-    );
+        // After your quaternion swap, chest yaw should be Unity Y
+        float chestYaw = Mathf.DeltaAngle(
+            startChestRotation.eulerAngles.y,
+            source.ChestRotation.eulerAngles.y
+        );
 
-    Quaternion targetRootRotation =
-        startRootRotation * Quaternion.Euler(0f, chestYaw, 0f);
+        Quaternion targetRootRotation =
+            startRootRotation * Quaternion.Euler(0f, chestYaw, 0f);
 
-    float t = 1f - Mathf.Exp(-rootTurnSmoothSpeed * Time.deltaTime);
-    root.rotation = Quaternion.Slerp(root.rotation, targetRootRotation, t);
-}
+        float t = 1f - Mathf.Exp(-rootTurnSmoothSpeed * Time.deltaTime);
+        root.rotation = Quaternion.Slerp(root.rotation, targetRootRotation, t);
+    }
 }
